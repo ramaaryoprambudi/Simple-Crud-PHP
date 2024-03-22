@@ -1,7 +1,6 @@
 <?php 
     include("connection.php");
-    $query = mysqli_query($connection, "SELECT * FROM karyawan");
-    $result = mysqli_fetch_all($query, MYSQLI_ASSOC);
+    $result = query("SELECT * FROM karyawan");
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +29,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th scope="col">No</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Alamat</th>
                     <th scope="col">Umur</th>
@@ -38,17 +38,20 @@
                 </tr>
             </thead>
             <tbody>
+                <?php $number =1; ?>
                 <?php foreach ($result as $results) : ?>
                     <tr>
-                        <td><?php echo $results['nama'] ?></td>
-                        <td><?php echo $results['alamat'] ?></td>
-                        <td><?php echo $results['umur'] ?></td>
-                        <td><?php echo $results['Jenis_Kelamin'] ?></td>
+                        <td><?php echo $number ?></td>
+                        <td><?php echo htmlspecialchars($results['nama']); ?></td>
+                        <td><?php echo htmlspecialchars($results['alamat']); ?></td>
+                        <td><?php echo htmlspecialchars($results['umur']); ?></td>
+                        <td><?php echo htmlspecialchars($results['Jenis_Kelamin']); ?></td>
                         <td>
                             <a href="edit.php?karyawan=<?php echo $results['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
                             <a href="delete.php?data_karyawan=<?php echo $results['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                     </tr>
+                    <?php $number++ ?>
                 <?php endforeach ?>
             </tbody>
         </table>

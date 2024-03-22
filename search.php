@@ -1,8 +1,7 @@
 <?php 
     include("connection.php");
     $keyword = $_GET['keyword'];
-    $query = mysqli_query($connection, "SELECT * FROM karyawan WHERE nama = '$keyword'");
-    $result = mysqli_fetch_all($query, MYSQLI_ASSOC);
+    $query = search("SELECT * FROM karyawan WHERE nama LIKE '%$keyword%'");
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +26,7 @@
                         name="keyword"
                         placeholder="Search Nama..."
                         value="<?php echo $keyword ?>"
-                        required="required"/>
+                        />
                     <button type="submit" class="btn btn-primary">Cari</button>
                 </div>
             </form>
@@ -45,7 +44,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($result as $results) : ?>
+                    <?php foreach ($query as $results) : ?>
                     <tr>
                         <td><?php echo $results['nama'] ?></td>
                         <td><?php echo $results['alamat'] ?></td>
